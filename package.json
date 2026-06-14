@@ -1,0 +1,22 @@
+{
+  "name": "beam",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Beam — direct, encrypted, browser-to-browser file transfer over WebRTC. A lightweight Node/Socket.io signaling server brokers the handshake; file bytes flow peer-to-peer and never touch the server.",
+  "license": "MIT",
+  "scripts": {
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "dev": "concurrently -n server,client -c cyan,magenta \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix server start",
+    "preview": "npm --prefix client run preview"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

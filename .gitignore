@@ -1,0 +1,46 @@
+# ---- dependencies ----
+node_modules/
+.pnp
+.pnp.js
+
+# ---- build output ----
+dist/
+build/
+.vite/
+
+# ---- environment ----
+# Never commit real secrets/URLs. Commit the .env.example files instead.
+.env
+.env.local
+.env.*.local
+client/.env
+server/.env
+
+# ---- logs ----
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- runtime / coverage ----
+coverage/
+.nyc_output/
+*.pid
+*.seed
+*.pid.lock
+
+# ---- caches ----
+.cache/
+.npm/
+.eslintcache
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

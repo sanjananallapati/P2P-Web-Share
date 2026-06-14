@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Base layer — the quiet foundation. All the personality lives in the
+ * components and the signal/ember/alert accents, so the canvas stays calm.
+ */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-ink text-bone font-sans antialiased;
+    /* A barely-there grid + radial wash so the deep ink never reads as flat. */
+    background-image:
+      radial-gradient(
+        70rem 50rem at 50% -10%,
+        rgba(52, 229, 196, 0.05),
+        transparent 60%
+      ),
+      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 100% 100%, 44px 44px, 44px 44px;
+    background-position: center top, center, center;
+    background-attachment: fixed;
+  }
+
+  /* Consistent, legible focus ring for keyboard users across the app. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-signal/70 ring-offset-2 ring-offset-ink;
+  }
+
+  ::selection {
+    background: rgba(52, 229, 196, 0.28);
+    color: #fff;
+  }
+
+  /* Tabular figures everywhere we show live numbers, so they don't jitter. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+}
+
+@layer components {
+  /* The eyebrow label used above section titles — small, spaced, mono. */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-eyebrow text-mist;
+  }
+
+  /* A raised panel: the primary surface for grouping content. */
+  .panel {
+    @apply rounded-2xl border border-ink-500/70 bg-ink-700/80 shadow-panel backdrop-blur-sm;
+  }
+
+  /* A subtle inset chip used for metadata pills. */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-ink-500
+           bg-ink-600/60 px-2.5 py-1 font-mono text-[11px] text-mist;
+  }
+}
+
+/*
+ * Respect reduced-motion globally. We keep meaning (color, layout, progress
+ * numbers) and only drop the decorative looping animation.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
