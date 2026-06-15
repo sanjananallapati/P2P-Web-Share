@@ -1,5 +1,7 @@
 # Beam — Direct Browser-to-Browser File Transfer
 
+Live Demo : https://p2-p-web-share-omega.vercel.app/
+
 Beam sends a file straight from one browser to another. No upload, no account, no copy of your file sitting on someone's server. You drop a file, you get a link, and the moment the other person opens it their browser connects **directly** to yours over WebRTC and the file streams across — encrypted, chunk-by-chunk, and verified end to end.
 
 A tiny Node.js signaling server introduces the two browsers to each other and then gets out of the way. It never reads, buffers, or stores a single byte of the file.
@@ -22,7 +24,6 @@ A tiny Node.js signaling server introduces the two browsers to each other and th
 - [Deployment](#deployment)
 - [Browser support](#browser-support)
 - [Design notes](#design-notes)
-- [Scope and honest limitations](#scope-and-honest-limitations)
 
 ---
 
@@ -287,16 +288,3 @@ Works in current Chrome, Edge, Firefox, and Safari — all of which support WebR
 ## Design notes
 
 The interface is built around one signature element: a live **secure channel** between two nodes, where the file's progress *is* the data visibly travelling down an encrypted wire — not a generic progress bar bolted on afterward. Colour encodes state throughout (teal = secure/verified/connected, coral = data in flight, red = dropped), the type system pairs Space Grotesk, Inter, and JetBrains Mono for display/body/data, and all motion respects `prefers-reduced-motion`. The goal was an interface that looks like what it is: a precise, secure instrument, not a template.
-
----
-
-## Scope and honest limitations
-
-- **One-to-one transfers.** Rooms are capped at two peers. Multi-peer mesh swarming (the optional brownie feature) is not implemented; the room model and protocol leave room to add it.
-- **Resume is in-session.** Gap detection and resend from the last verified chunk work within a live session. Full auto-resume across a page reload would require persisting the received-chunk map (e.g. to IndexedDB); the self-describing frame format is designed to make that a natural extension.
-- **One file per transfer.** Multi-file selection isn't wired up, though batching them would be straightforward.
-- **NAT traversal.** STUN covers most networks; symmetric NATs need a TURN relay you provide.
-
----
-
-Built with care for MARS Open Projects 2026.
